@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🎨 Premium Logo Maker - Nightorbit Gyidi Bazar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h1 i {
+            color: #00d2ff;
+            font-size: 35px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Pre-made Logos Section */
+        .premade-section {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .logo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .logo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .logo-card.selected {
+            border-color: #00d2ff;
+            background: #e3f2fd;
+        }
+        
+        .logo-preview {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        
+        .logo-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        /* Custom Upload Section */
+        .upload-section {
+            background: #f8f9fa;
+            border: 3px dashed #00d2ff;
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 25px;
+        }
+        
+        .upload-section:hover {
+            background: #e3f2fd;
+            border-color: #0088cc;
+        }
+        
+        .upload-section i {
+            font-size: 50px;
+            color: #00d2ff;
+            margin-bottom: 10px;
+        }
+        
+        .upload-section p {
+            color: #555;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .upload-section small {
+            color: #888;
+            font-size: 12px;
+        }
+        
+        /* Preview Section */
+        .preview-section {
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .preview-header h3 {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .preview-badge {
+            background: #00d2ff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .preview-box {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .preview-box h4 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .preview-box canvas {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .size-tag {
+            display: inline-block;
+            background: #00d2ff;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            margin-top: 8px;
+        }
+        
+        /* Controls */
+        .controls-section {
+            background: #f8f9fa;
+            border-radius: 25px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .control-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        .control-group input:focus {
+            border-color: #00d2ff;
+            outline: none;
+        }
+        
+        .color-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .color-box {
+            text-align: center;
+        }
+        
+        .color-box input[type="color"] {
+            width: 100%;
+            height: 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            padding: 16px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #00d2ff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0088cc;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .btn-download {
+            background: #007bff;
+            color: white;
+            width: 100%;
+            margin: 8px 0;
+        }
+        
+        .btn-download:hover {
+            background: #0056b3;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+        }
+        
+        /* Hidden */
+        #imageInput, #canvas192, #canvas512 {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <i class="fas fa-crown"></i>
+            Premium Logo Maker
+        </h1>
+        <div class="subtitle">
+            Nightorbit • Gyidi Bazar • Custom Logos
+        </div>
+        
+        <!-- Hidden file input -->
+        <input type="file" id="imageInput" accept="image/*">
+        
+        <!-- Hidden canvases -->
+        <canvas id="canvas192" width="192" height="192"></canvas>
+        <canvas id="canvas512" width="512" height="512"></canvas>
+        
+        <!-- ===== PRE-MADE LOGOS SECTION ===== -->
+        <div class="premade-section">
+            <div class="section-title">
+                <i class="fas fa-star" style="color:#ffd700;"></i>
+                Ready-Made Logo Designs
+            </div>
+            
+            <div class="logo-grid">
+                <!-- Logo 1: Simple Nightorbit -->
+                <div class="logo-card" onclick="selectLogo(1)">
+                    <div class="logo-preview" style="background: linear-gradient(135deg, #00d2ff, #0099ff);">
+                        <span style="color: white;">N</span>
+                    </div>
+                    <div class="logo-name">Simple Night</div>
+                </div>
+                
+                <!-- Logo 2: G with Circle -->
+                <div class="logo-card" onclick="selectLogo(2)">
+                    <div class="logo-preview" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <span style="color: #ffd700;">G</span>
+                    </div>
+                    <div class="logo-name">Golden G</div>
+                </div>
+                
+                <!-- Logo 3: Nightorbit Text -->
+                <div class="logo-card" onclick="selectLogo(3)">
+                    <div class="logo-preview" style="background: #00d2ff;">
+                        <span style="color: white; font-size: 24px;">N•G</span>
+                    </div>
+                    <div class="logo-name">N•G Combo</div>
+                </div>
+                
+                <!-- Logo 4: Star Design -->
+                <div class="logo-card" onclick="selectLogo(4)">
+                    <div class="logo-preview" style="background: #05070a;">
+                        <span style="color: #00d2ff;">✨</span>
+                    </div>
+                    <div class="logo-name">Night Star</div>
+                </div>
+                
+                <!-- Logo 5: Gyidi Special -->
+                <div class="logo-card" onclick="selectLogo(5)">
+                    <div class="logo-preview" style="background: linear-gradient(45deg, #00d2ff, #ff0055);">
+                        <span style="color: white; font-size: 28px;">G</span>
+                    </div>
+                    <div class="logo-name">Gyidi Special</div>
+                </div>
+                
+                <!-- Logo 6: Custom Upload -->
+                <div class="logo-card" onclick="document.getElementById('imageInput').click()">
+                    <div class="logo-preview" style="background: #f0f0f0;">
+                        <i class="fas fa-plus" style="color: #00d2ff; font-size: 30px;"></i>
+                    </div>
+                    <div class="logo-name">Upload Photo</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== UPLOAD SECTION ===== -->
+        <div class="upload-section" onclick="document.getElementById('imageInput').click()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Gallery se photo select karo</p>
+            <small>PNG, JPG, JPEG (Max 5MB)</small>
+        </div>
+        
+        <!-- ===== PREVIEW SECTION ===== -->
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-header">
+                <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                <span class="preview-badge" id="logoType">Custom</span>
+            </div>
+            
+            <div class="preview-grid">
+                <div class="preview-box">
+                    <h4>192x192 Logo</h4>
+                    <canvas id="preview192Canvas" width="192" height="192"></canvas>
+                    <span class="size-tag">192x192</span>
+                </div>
+                <div class="preview-box">
+                    <h4>512x512 Logo</h4>
+                    <canvas id="preview512Canvas" width="512" height="512"></canvas>
+                    <span class="size-tag">512x512</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== CONTROLS SECTION ===== -->
+        <div class="controls-section">
+            <div class="section-title">
+                <i class="fas fa-sliders-h"></i>
+                Customize Text
+            </div>
+            
+            <div class="control-group">
+                <label><i class="fas fa-arrow-up"></i> Pehla Text (Nightorbit)</label>
+                <input type="text" id="text1" value="Nightorbit" placeholder="Enter text">
+            </div>
+            
+            <div class="control-group">
+                <label><i class="fas fa-arrow-down"></i> Dusra Text (Gyidi Bazar)</label>
+                <input type="text" id="text2" value="Gyidi Bazar" placeholder="Enter text">
+            </div>
+            
+            <div class="color-row">
+                <div class="color-box">
+                    <label>Background Color</label>
+                    <input type="color" id="bgColor" value="#00d2ff">
+                </div>
+                <div class="color-box">
+                    <label>Text Color</label>
+                    <input type="color" id="textColor" value="#ffffff">
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="generateLogo()">
+                    <i class="fas fa-sync-alt"></i> Generate
+                </button>
+                <button class="btn btn-success" onclick="resetAll()">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
+            </div>
+            
+            <button class="btn btn-download" onclick="download192()">
+                <i class="fas fa-download"></i> Download 192x192 Logo
+            </button>
+            <button class="btn btn-download" onclick="download512()">
+                <i class="fas fa-download"></i> Download 512x512 Logo
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>⚡ 6 Ready Designs • Custom Upload • Live Preview • Mobile Friendly</p>
+        </div>
+    </div>
+    
+    <script>
+        let currentImage = null;
+        let selectedDesign = 1;
+        
+        // Image input handler
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        currentImage = img;
+                        document.getElementById('previewSection').style.display = 'block';
+                        document.getElementById('logoType').textContent = 'Custom Photo';
+                        generateLogo();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Select pre-made logo
+        function selectLogo(designNumber) {
+            selectedDesign = designNumber;
+            
+            // Highlight selected
+            document.querySelectorAll('.logo-card').forEach((card, index) => {
+                if (index + 1 === designNumber) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            // Create design image
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Different designs
+            switch(designNumber) {
+                case 1: // Simple Night
+                    ctx.fillStyle = '#00d2ff';
+                    ctx.fillRect(0, 0, 512, 512);
+                    ctx.font = 'bold 300px Arial';
+                    ctx.fillStyle = 'white';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('N', 256, 256);
+                    break;
+                    
+                case 2: // Golden G
+                    const grad = ctx.createLinearGradient(0, 0, 512, 512);
+                    grad.addColorStop(0, '#667eea');
+                    grad.addColorStop(1, '#764ba2');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, 512, 512);
+                    ctx.font = 'bold 300px Arial';
+                    ctx.fillStyle = '#ffd700';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('G', 256, 256);
+                    break;
+                    
+                case 3: // N•G Combo
+                    ctx.fillStyle = '#00d2ff';
+                    ctx.fillRect(0, 0, 512, 512);
+                    ctx.font = 'bold 200px Arial';
+                    ctx.fillStyle = 'white';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('N•G', 256, 256);
+                    break;
+                    
+                case 4: // Night Star
+                    ctx.fillStyle = '#05070a';
+                    ctx.fillRect(0, 0, 512, 512);
+                    ctx.font = '300px Arial';
+                    ctx.fillStyle = '#00d2ff';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('✨', 256, 256);
+                    break;
+                    
+                case 5: // Gyidi Special
+                    const grad2 = ctx.createLinearGradient(0, 0, 512, 0);
+                    grad2.addColorStop(0, '#00d2ff');
+                    grad2.addColorStop(1, '#ff0055');
+                    ctx.fillStyle = grad2;
+                    ctx.fillRect(0, 0, 512, 512);
+                    ctx.font = 'bold 350px Arial';
+                    ctx.fillStyle = 'white';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('G', 256, 256);
+                    break;
+                    
+                case 6: // Upload handled separately
+                    return;
+            }
+            
+            // Convert canvas to image
+            const img = new Image();
+            img.onload = function() {
+                currentImage = img;
+                document.getElementById('previewSection').style.display = 'block';
+                document.getElementById('logoType').textContent = `Design ${designNumber}`;
+                generateLogo();
+            };
+            img.src = canvas.toDataURL('image/png');
+        }
+        
+        // Generate logo with text
+        function generateLogo() {
+            if (!currentImage) {
+                selectLogo(1); // Default to design 1
+                return;
+            }
+            
+            const text1 = document.getElementById('text1').value || 'Nightorbit';
+            const text2 = document.getElementById('text2').value || 'Gyidi Bazar';
+            const bgColor = document.getElementById('bgColor').value;
+            const txtColor = document.getElementById('textColor').value;
+            
+            // Generate 192x192
+            const canvas192 = document.getElementById('canvas192');
+            const ctx192 = canvas192.getContext('2d');
+            
+            ctx192.fillStyle = bgColor;
+            ctx192.fillRect(0, 0, 192, 192);
+            
+            // Draw image in circle
+            ctx192.save();
+            ctx192.beginPath();
+            ctx192.arc(96, 70, 50, 0, Math.PI * 2);
+            ctx192.closePath();
+            ctx192.clip();
+            ctx192.drawImage(currentImage, 46, 20, 100, 100);
+            ctx192.restore();
+            
+            // Border
+            ctx192.strokeStyle = '#ffffff';
+            ctx192.lineWidth = 3;
+            ctx192.beginPath();
+            ctx192.arc(96, 70, 50, 0, Math.PI * 2);
+            ctx192.stroke();
+            
+            // Text
+            ctx192.font = 'bold 16px Arial';
+            ctx192.fillStyle = txtColor;
+            ctx192.textAlign = 'center';
+            ctx192.fillText(text1, 96, 140);
+            
+            ctx192.font = 'bold 12px Arial';
+            ctx192.fillText(text2, 96, 165);
+            
+            // Update preview
+            const preview192 = document.getElementById('preview192Canvas');
+            const ctxPre192 = preview192.getContext('2d');
+            ctxPre192.drawImage(canvas192, 0, 0, 192, 192);
+            
+            // Generate 512x512
+            const canvas512 = document.getElementById('canvas512');
+            const ctx512 = canvas512.getContext('2d');
+            
+            ctx512.fillStyle = bgColor;
+            ctx512.fillRect(0, 0, 512, 512);
+            
+            ctx512.save();
+            ctx512.beginPath();
+            ctx512.arc(256, 180, 130, 0, Math.PI * 2);
+            ctx512.closePath();
+            ctx512.clip();
+            ctx512.drawImage(currentImage, 126, 50, 260, 260);
+            ctx512.restore();
+            
+            ctx512.strokeStyle = '#ffffff';
+            ctx512.lineWidth = 8;
+            ctx512.beginPath();
+            ctx512.arc(256, 180, 130, 0, Math.PI * 2);
+            ctx512.stroke();
+            
+            ctx512.font = 'bold 42px Arial';
+            ctx512.fillStyle = txtColor;
+            ctx512.textAlign = 'center';
+            ctx512.fillText(text1, 256, 360);
+            
+            ctx512.font = 'bold 32px Arial';
+            ctx512.fillText(text2, 256, 430);
+            
+            // Update preview
+            const preview512 = document.getElementById('preview512Canvas');
+            const ctxPre512 = preview512.getContext('2d');
+            ctxPre512.drawImage(canvas512, 0, 0, 512, 512);
+        }
+        
+        // Download functions
+        function download192() {
+            const canvas = document.getElementById('canvas192');
+            const link = document.createElement('a');
+            link.download = 'nightorbit-logo-192.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        function download512() {
+            const canvas = document.getElementById('canvas512');
+            const link = document.createElement('a');
+            link.download = 'nightorbit-logo-512.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Reset all
+        function resetAll() {
+            document.getElementById('text1').value = 'Nightorbit';
+            document.getElementById('text2').value = 'Gyidi Bazar';
+            document.getElementById('bgColor').value = '#00d2ff';
+            document.getElementById('textColor').value = '#ffffff';
+            selectLogo(1);
+        }
+        
+        // Initialize with design 1
+        window.onload = function() {
+            selectLogo(1);
+        };
+    </script>
+</body>
+</html>
